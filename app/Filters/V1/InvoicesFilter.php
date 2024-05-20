@@ -31,30 +31,4 @@ class InvoicesFilter extends ApiFilter
         'ne' => '!=', // 'ne' mapped to '!=' for "not equal"
         'like' => 'like',
     ];
-
-
-    public function transform(Request $request)
-    {
-        $eloQuery = [];
-
-        foreach ($this->safeParms as $parm => $operators) {
-            $query = $request->query($parm); //set ann
-            if (!isset($query)) {
-                continue;
-            }
-
-            $column =  $this->columnMap[$parm] ?? $parm;
-            foreach ($operators as $operator) {
-                if (isset($query[$operator])) {
-                    $eloQuery[] = [
-                        $column,
-                        $this->operatorMap[$operator],
-                        $query[$operator]
-                    ];
-                }
-            }
-        }
-
-        return $eloQuery;
-    }
 }

@@ -29,29 +29,5 @@ class CustomerFilter extends ApiFilter
         'gte' => '>=',
         'like' => 'like',
     ];
-
-
-    public function transform(Request $request)
-    {
-        $eloQuery = [];
-
-        foreach ($this->safeParms as $parm => $operators) {
-            $query = $request->query($parm);
-            if (!isset($query)) {
-                continue;
-            }
-            $column =  $this->columnMap[$parm] ?? $parm;
-            foreach ($operators as $operator) {
-                if (isset($query[$operator])) {
-                    $eloQuery[] = [
-                        $column,
-                        $this->operatorMap[$operator],
-                        $query[$operator]
-                    ];
-                }
-            }
-        }
-
-        return $eloQuery;
-    }
 }
+//http://127.0.0.1:8000/api/v1/customers/?name[eq]=Koelpin-Kerluke&type[eq]=B
