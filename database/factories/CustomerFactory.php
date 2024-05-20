@@ -1,0 +1,41 @@
+<?php
+
+namespace Database\Factories;
+
+use App\Models\Customer;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Customer>
+ */
+class CustomerFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
+
+    protected $model = Customer::class;
+
+    public function definition(): array
+    {
+
+        $type = $this->faker->randomElement(['I', 'B']);
+        $name =  $type == 'I' ? fake()->name() : $this->faker->company();
+
+
+
+        return [
+            'type' => $type,
+            'name' => $name,
+            'email' => fake()->unique()->safeEmail(),
+            'address' => $this->faker->streetAddress(),
+            'city' => $this->faker->city(),
+            'state' => $this->faker->state(),
+            'postal_code' => $this->faker->postcode(),
+
+
+        ];
+    }
+}
