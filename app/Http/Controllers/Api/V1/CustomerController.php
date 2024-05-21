@@ -20,7 +20,6 @@ class CustomerController extends Controller
     public function index(Request $request)
     {
 
-
         $filter = new CustomerFilter();
         $filterItmes = $filter->transform($request); //[['column', 'operator', 'value']]
 
@@ -32,7 +31,6 @@ class CustomerController extends Controller
         }
 
         return new CoustomerCollection($customers->paginate()->appends($request->query()));
-
 
         // //using this index method get all custormers data
         // $all_data = Customer::all();
